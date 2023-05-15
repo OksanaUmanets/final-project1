@@ -22,3 +22,13 @@ card-img-top {
 #tel{
 	text-decoration: none;
 }
+
+h1{
+    font-size: 3em;
+    text-align: center;
+    color: orange;
+    font-weight: 100;
+    text-transform: capitalize;
+    letter-spacing: 4px;
+    font-family: 'Roboto', sans-serif;
+}
