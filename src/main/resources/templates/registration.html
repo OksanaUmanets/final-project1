@@ -7,7 +7,7 @@
     <meta name="author" content=""/>
     <title>Форма регистрации - КНИЖНАЯ МАГИЯ</title>
     <script type="application/x-javascript"> addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
+        setTimeout(hideURL bar, 0);
     }, false);
 
     function hideURLbar() {
@@ -29,7 +29,7 @@
 <body>
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container px-4 px-lg-5">
+    <div class="container px-3 px-lg-5">
         <a><img src="assets/img/logo/logo.png" width="70px" height="70px"></a>
         <a class="navbar-brand" th:href="@{/}">КНИЖНАЯ МАГИЯ</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -95,7 +95,6 @@
                     <input type="submit" value="Зарегистрироваться">
                 </form>
 
-
                 <div th:if="${param.error}" style="color: red">
                     Заполнены не все поля
                 </div>
@@ -103,23 +102,11 @@
             </div>
         </div>
     </div>
+
     <!-- copyright -->
     <div class="colorlibcopy-agile">
         <p>© 2023 КНИЖНАЯ МАГИЯ <a href="https://ru.freepik.com/" target="_blank">freepik</a></p>
     </div>
-    <!-- //copyright -->
-    <!--    <ul class="colorlib-bubbles">-->
-    <!--        <li></li>-->
-    <!--        <li></li>-->
-    <!--        <li></li>-->
-    <!--        <li></li>-->
-    <!--        <li></li>-->
-    <!--        <li></li>-->
-    <!--        <li></li>-->
-    <!--        <li></li>-->
-    <!--        <li></li>-->
-    <!--        <li></li>-->
-    <!--    </ul>-->
 </div>
 <!-- //main -->
 
