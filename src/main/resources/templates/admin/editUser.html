@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Редактировать пользователя - КНИЖНАЯ МАГИЯ</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+    <!-- Bootstrap icons-->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+            rel="stylesheet"/>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a><img src="assets/img/logo/logo.png" width="70px" height="70px"></a>
+        <a class="navbar-brand" th:href="@{/admin}">КНИЖНАЯ МАГИЯ</a>
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active"
+                                        aria-current="page" th:href="@{/admin/orders}">Список заказов</a></li>
+                <li class="nav-item"><a class="nav-link active"
+                                        aria-current="page" th:href="@{/admin/users}">Пользователи</a></li>
+                <li class="nav-item dropdown"><a
+                        class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">Справочники</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/admin/product/add}">Добавить
+                            товар товаров</a></li>
+                        <li>
+                            <hr class="dropdown-divider"/>
+                        </li>
+                        <li><a class="dropdown-item"
+                               th:href="@{/admin/product/addCategory}">Добавить категорию</a></li>
+
+
+                    </ul>
+                <li class="nav-item"></li>
+
+            </ul>
+
+
+            <form class="d-flex" method="get" th:action="@{/person account}">
+                <button class="btn btn-outline-dark" type="submit"
+                >Личный кабинет
+                </button>
+            </form>
+
+
+            <form class="d-flex" method="post" action="/logout">
+                <input type="hidden" th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}">
+                <button class="btn btn-outline-dark" type="submit">
+                    <i class="bi bi-box-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
+<!-- Header-->
+<header class="bg-light py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-black">
+            <h1 class="display-4 fw-bolder">Личный кабинет администратора</h1>
+            <p class="lead fw-normal text-black-50 mb-0"></p>
+        </div>
+    </div>
+</header>
+<hr>
+
+
+<main class="page ">
+    <section class="clean-block clean-cart dark">
+        <div class="container">
+            <div class="block-heading text-center">
+                <h2 class="text-info">Редактирование пользователя</h2>
+
+            </div>
+            <div class="content">
+                <div class="row g-0">
+
+                    <form th:method="POST"
+                          th:action="@{/admin/person/edit/{id}(id=${person.getId()})}"
+                          th:object="${person}" enctype="multipart/form-data">
+
+                        <label for="login">Логин пользователя: </label> <input
+                            type="text" th:field="*{login}" placeholder="Наименование"
+                            id="login">
+                        <div style="color: red" th:if="${#fields.hasErrors('login')}"
+                             th:errors="*{login}"></div>
+                        <br> <br> <label for="role">Роль: </label> <input
+                            type="text" th:field="*{role}" placeholder="Наименование"
+                            id="role">
+                        <div style="color: red" th:if="${#fields.hasErrors('role')}"
+                             th:errors="*{role}"></div>
+                        <br> <br> <label for="password">Пароль: </label> <input
+                            type="text" th:field="*{password}" placeholder="Наименование"
+                            id="password">
+                        <div style="color: red" th:if="${#fields.hasErrors('password')}"
+                             th:errors="*{password}"></div>
+                        <br> <br> <input type="submit" value="Редактировать">
+                    </form>
+                </div>
+                <a href="/admin">Возврат в панель администратора</a>
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="page-footer dark">
+    <hr>
+    <div class="footer-copyright text-center">
+        <p>© 2023 КНИЖНАЯ МАГИЯ</p>
+    </div>
+</footer>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js"></script>
+<script src="js/vanilla-zoom.js"></script>
+<script src="js/theme.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+<script src="assets/js/vanilla-zoom.js"></script>
+<script src="assets/js/theme.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Товары - КНИЖНАЯ МАГИЯ</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+    <!-- Bootstrap icons-->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+            rel="stylesheet"/>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a><img src="assets/img/logo/logo.png" width="70px" height="70px"></a>
+        <a class="navbar-brand" th:href="@{/}">КНИЖНАЯ МАГИЯ</a>
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active"
+                                        aria-current="page" th:href="@{/}">Главная</a></li>
+
+                <li class="nav-item dropdown"><a
+                        class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">Магазин</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/product}">Каталог
+                            товаров</a></li>
+                        <li>
+                            <hr class="dropdown-divider"/>
+                        </li>
+                        <li><a class="dropdown-item" th:href="@{/orders}">Заказы</a></li>
+
+
+                    </ul>
+                <li class="nav-item"></li>
+
+            </ul>
+
+
+            <form class="d-flex" method="get" th:action="@{/cart}">
+                <button class="btn btn-outline-dark" type="submit">
+                    <i class="bi-cart-fill me-1"></i> <span
+                        class="badge bg-dark text-white ms-1 rounded-pill"></span>
+                </button>
+            </form>
+
+
+            <form class="d-flex" method="post" action="/logout">
+                <input type="hidden" th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}">
+                <button class="btn btn-outline-dark" type="submit">
+                    <i class="bi bi-box-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<!-- Header-->
+<header class="bg-light py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-black">
+            <h1 class="display-4 fw-bolder">КНИЖНАЯ МАГИЯ</h1>
+            <p class="lead fw-normal text-black-50 mb-0">Книги - надежный друг</p>
+        </div>
+    </div>
+</header>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <h5 class="card-title">
+                Поиск по параметрам: <i class="bi bi-search"></i>
+            </h5>
+            <form th:method="POST" th:action="@{/product/search}">
+                <input type="hidden" th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}">
+                <fieldset>
+                    <label for="search">Поиск по наименованию</label> <input
+                        type="text" id="search" name="search" th:value="*{value_search}">
+                    <br>
+                    <hr>
+                    <p>Цена, р.</p>
+                    <label for="ot">От</label> <input type="text" name="ot" id="ot"
+                                                      th:value="*{value_price_ot}"> <br> <label for="do">До</label>
+                    <input type="text" name="do" id="do" th:value="*{value_price_do}">
+                    <br>
+                    <hr>
+                    <div>
+                        <input type="radio" id="ascending_price" name="price"
+                               value="sorted_by_ascending_price"> <label
+                            for="ascending_price">Отсортировать по возрастанию цены</label>
+                        <br> <input type="radio" id="descending_price" name="price"
+                                    value="sorted_by_descending_price"> <label
+                            for="descending_price">Отсортировать по убыванию цены</label> <br>
+                        <hr>
+                        <p>Категория товаров:</p>
+                        <input type="radio" id="furniture" name="contract"
+                               value="furniture"> <label for="furniture">Детективы</label>
+                        <br> <input type="radio" id="appliances" name="contract"
+                                    value="appliances"> <label for="appliances">Фэнтези</label> <br> <input type="radio"
+                                                                                                            id="clothes"
+                                                                                                            name="contract"
+                                                                                                            value="clothes">
+                        <label for="clothes">Романы</label>
+                        <br>
+                        <hr>
+                        <input type="submit" value="Найти">
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="col">
+            <div class="container">
+
+                <!-- Section-->
+                <section class="py-5">
+                    <div class="container px-4 px-lg-5 mt-5">
+                        <div
+                                class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                            <div class="col mb-5" th:each="product : ${search_product}">
+                                <div class="card h-100">
+                                    <!-- Product image-->
+                                    <img class="card-img-top"
+                                         th:src="'/img/' + ${product.imageList[0].getFileName()}"
+                                         alt="..."/>
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder" th:text="${product.getTitle()}"></h5>
+                                            <!-- Product price-->
+                                            <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto"
+                                               th:href="@{/product/info/{id}(id=${product.getId()})}">Подробно</a> <br>
+                                            <a
+                                                    th:href="@{/cart/add/{id}(id=${product.getId()})}">Добавить
+                                                товар в корзину</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<hr>
+
+
+</body>
+<!-- Footer -->
+<footer class="page-footer dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <h5>Покупателям</h5>
+                <ul>
+                    <li><a href="#">Как сделать заказ</a></li>
+                    <li><a href="#">Способы оплаты</a></li>
+                    <li><a href="#">Доставка</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <h5>Компания</h5>
+                <ul>
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="#">Отзывы</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <h5>Мы с соцсетях</h5>
+                <ul>
+                    <li><a href="#">ВКонтакте</a></li>
+                    <li><a href="#">Одноклассники</a></li>
+                    <li><a href="#">Телеграм</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <h5>Партнерам</h5>
+                <ul>
+                    <li><a href="#">Преимущества</a></li>
+                    <li><a href="#">Курьерам</a></li>
+                    <li><a href="#">Перевозчикам</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-copyright text-center">
+        <p>© 2023 КНИЖНАЯ МАГИЯ</p>
+    </div>
+</footer>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js"></script>
+<script src="js/vanilla-zoom.js"></script>
+<script src="js/theme.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
